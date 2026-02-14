@@ -1,0 +1,873 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'po';
+    src: url('/fonts/po.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --background: 38 45% 96%; /* #F8F3E9 - Creamy Warm Background */
+    --foreground: 20 20% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 20% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 20% 15%;
+    --primary: 108 25% 45%; /* #638C5A - Forest Green */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 108 30% 92%;
+    --secondary-foreground: 108 40% 20%;
+    --muted: 38 20% 90%;
+    --muted-foreground: 20 10% 40%;
+    --accent: 28 65% 55%; /* #D48C45 - Warm Terracotta/Orange */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 38 15% 85%;
+    --input: 38 15% 85%;
+    --ring: 108 25% 53%;
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 20 20% 10%;
+    --foreground: 0 0% 98%;
+    --card: 20 20% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 20 20% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 108 25% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 20% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 20 20% 25%;
+    --muted-foreground: 20 10% 65%;
+    --accent: 28 65% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 20% 20%;
+    --input: 20 20% 20%;
+    --ring: 108 25% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'po', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Flower Loader Styles */
+.flower-loader {
+  overflow: hidden;
+  position: relative;
+  text-indent: -9999px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #e96;
+  border-radius: 100%;
+  box-shadow: white 0 0 15px 0, #485 -12px -12px 0 4px, #485 12px -12px 0 4px,
+    #485 12px 12px 0 4px, #485 -12px 12px 0 4px;
+  animation: flower-loader 5s infinite ease-in-out;
+  transform-origin: 50% 50%;
+}
+
+@keyframes flower-loader {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: white 0 0 15px 0, #485 -12px -12px 0 4px, #485 12px -12px 0 4px,
+      #485 12px 12px 0 4px, #485 -12px 12px 0 4px;
+  }
+  50% {
+    transform: rotate(1080deg);
+    box-shadow: white 0 0 15px 0, #485 12px 12px 0 4px, #485 -12px -12px 0 4px,
+      #485 -12px 12px 0 4px, #485 12px 12px 0 4px;
+  }
+}
+
+/* Custom Switch - Flower/Seed Theme */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+  --mud: #8B4513;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, skyblue 70%, var(--mud));
+  transition: .4s;
+  border-radius: 30px;
+  border: 2px solid black;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.3em;
+  bottom: 0.3em;
+  transition: .4s;
+}
+
+.plant {
+  position: absolute;
+  bottom: 3px;
+  right: 2px;
+  z-index: 3;
+  opacity: 0;
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.seed {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.3em;
+  bottom: 0.3em;
+  transition: .4s;
+}
+
+.switch input:checked + .slider {
+  background: linear-gradient(to bottom, #76A36C 70%, var(--mud));
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #76A36C;
+}
+
+.switch input:checked + .slider:before,
+.switch input:checked + .slider .seed {
+  transform: translateX(1.5em);
+}
+
+.switch input:checked + .slider .seed {
+  opacity: 0;
+}
+
+.switch input:checked + .slider .plant {
+  animation: zoomIn 0.5s forwards;
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Custom Button 01 (Auth Page) - Hayan Green Version */
+.button_01 {
+  position: relative;
+  font-family: 'po', sans-serif;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  padding-left: 70px;
+  outline: none;
+  border: none;
+  background-color: #638C5A;
+  border-radius: 1em;
+  color: whitesmoke;
+  font-size: 25px;
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(99, 140, 90, 0.4);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button_01 span {
+  position: relative;
+  z-index: 2;
+}
+
+.tree {
+  position: absolute;
+  display: block;
+  left: 10px;
+  width: 50%;
+  height: 70%;
+  bottom: -5px;
+  transition-duration: 0.75s;
+  z-index: 1;
+}
+
+.wave {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0%;
+  z-index: 1;
+  transition-duration: 0.5s;
+  width: 100%;
+  height: 100%;
+}
+
+.button_01:hover {
+  box-shadow: 0 0 20px rgba(99, 140, 90, 0.6);
+}
+
+.button_01:hover .tree {
+  bottom: -100%;
+}
+
+.button_01:hover .wave {
+  top: 0%;
+}
+
+/* ---------- Hayan Specific Weather Card V2 (Black & Green) ---------- */
+.hayan-weather-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 350px;
+  width: 550px;
+  border-radius: 40px;
+  background: #000000;
+  overflow: hidden;
+  transition: 100ms ease;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 15px 40px;
+}
+
+.hayan-info-section {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 72%;
+  color: white;
+}
+
+.hayan-left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  z-index: 1;
+  padding-left: 25px;
+  align-items: flex-start;
+}
+
+.hayan-weather-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.hayan-weather-icon-box {
+  width: 45px;
+  height: auto;
+}
+
+.hayan-temperature-text {
+  font-size: 52pt;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 5px;
+}
+
+.hayan-range-text {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.hayan-right-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 100%;
+  padding-right: 25px;
+  z-index: 1;
+}
+
+.hayan-hour-text {
+  font-size: 32pt;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hayan-date-text {
+  font-size: 18px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.hayan-city-name {
+  font-size: 20px;
+  font-weight: 900;
+  color: #638C5A;
+}
+
+.hayan-bg-design {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.hayan-circle-obj {
+  background-color: #638C5A;
+}
+
+.hayan-circle-obj:nth-child(1) {
+  position: absolute;
+  top: -80%;
+  right: -50%;
+  width: 450px;
+  height: 450px;
+  opacity: 0.3;
+  border-radius: 50%;
+}
+
+.hayan-circle-obj:nth-child(2) {
+  position: absolute;
+  top: -70%;
+  right: -30%;
+  width: 320px;
+  height: 320px;
+  opacity: 0.3;
+  border-radius: 50%;
+}
+
+.hayan-circle-obj:nth-child(3) {
+  position: absolute;
+  top: -35%;
+  right: -8%;
+  width: 150px;
+  height: 150px;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+.hayan-days-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 28%;
+  background-color: #1A2E05;
+  gap: 2px;
+}
+
+.hayan-day-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: #2D4F0A;
+  cursor: pointer;
+  transition: 200ms ease;
+  gap: 5px;
+  border: none;
+}
+
+.hayan-day-btn:hover {
+  transform: scale(0.95);
+  border-radius: 12px;
+}
+
+.hayan-day-label {
+  font-size: 11pt;
+  font-weight: 900;
+  color: white;
+  opacity: 0.9;
+}
+
+.hayan-day-icon-small {
+  width: 22px;
+  height: 22px;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------- New Welcome Button Animated (Plant based) ---------- */
+.welcome-btn {
+  position: relative;
+  padding: 13px 35px;
+  background: #76A36C;
+  font-size: 17px;
+  font-weight: 900;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px #18181869, inset 2px 2px 10px #ffffff30;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-1, .icon-2, .icon-3, .icon-4, .icon-5 {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 0px;
+  height: auto;
+  transition: all .5s ease-in-out;
+}
+
+.icon-1 { z-index: -1; }
+.icon-2, .icon-3, .icon-4, .icon-5 { z-index: -2; }
+
+.welcome-btn:hover {
+  padding: 13px 25px;
+  border-radius: 12px 12px 24px 24px;
+}
+
+.welcome-btn:hover .icon-1 {
+  top: -250%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50px;
+  height: auto;
+  animation: inIcon1 1s ease .45s forwards;
+}
+
+@keyframes inIcon1 {
+  0% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+  25% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(5deg); }
+  50% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(1deg); }
+  65% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(3deg); }
+  100% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.welcome-btn:hover .icon-2 {
+  position: absolute;
+  top: -200%;
+  left: 90%;
+  transform: translate(-50%, 0);
+  width: 75px;
+  height: auto;
+  animation: inIcon2 1s ease .45s forwards;
+}
+
+@keyframes inIcon2 {
+  0% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+  35% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(10deg); }
+  50% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(4deg); }
+  80% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(5deg); }
+  100% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.welcome-btn:hover .icon-3 {
+  position: absolute;
+  top: -130%;
+  left: 20%;
+  transform: translate(-50%, 0);
+  width: 60px;
+  height: auto;
+  animation: inIcon3 1s ease .45s forwards;
+}
+
+@keyframes inIcon3 {
+  0% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+  35% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(-2deg); }
+  100% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.welcome-btn:hover .icon-4 {
+  position: absolute;
+  top: -300%;
+  left: 10%;
+  transform: translate(-50%, 0);
+  width: 85px;
+  height: auto;
+  animation: inIcon4 1s ease .45s forwards;
+}
+
+@keyframes inIcon4 {
+  0% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+  40% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(-3deg); }
+  100% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.welcome-btn:hover .icon-5 {
+  position: absolute;
+  top: -350%;
+  left: 90%;
+  transform: translate(-50%, 0);
+  width: 85px;
+  height: auto;
+  animation: inIcon5 1s ease .45s forwards;
+}
+
+@keyframes inIcon5 {
+  0% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+  35% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(-3deg); }
+  100% { transform-origin: 0 100%; transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.fil-leaf-1 { fill: #7B9B3A }
+.fil-leaf-2 { fill: #556729; fill-rule: nonzero }
+.fil-leaf-3 { fill: #556729 }
+.fil-leaf-4 { fill: #3C4819 }
+.fil-leaf-5 { fill: #3C4819 }
+
+/* ---------- New Documentation Button (Flowers) ---------- */
+.btn-doc {
+  height: 4em;
+  width: 12em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0px solid black;
+  cursor: pointer;
+}
+
+.wrapper-doc {
+  height: 2.5em;
+  width: 9em;
+  position: relative;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-doc {
+  font-size: 17px;
+  z-index: 1;
+  color: #1A2E05;
+  padding: 6px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.5s ease;
+  font-weight: 900;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.flower {
+  display: grid;
+  grid-template-columns: 1em 1em;
+  position: absolute;
+  transition: grid-template-columns 0.8s ease;
+}
+
+.flower1 { top: -12px; left: -13px; transform: rotate(5deg); }
+.flower2 { bottom: -5px; left: 8px; transform: rotate(35deg); }
+.flower3 { bottom: -15px; transform: rotate(0deg); }
+.flower4 { top: -14px; transform: rotate(15deg); }
+.flower5 { right: 11px; top: -3px; transform: rotate(25deg); }
+.flower6 { right: -15px; bottom: -15px; transform: rotate(30deg); }
+
+.petal {
+  height: 1em;
+  width: 1em;
+  border-radius: 40% 70% / 7% 90%;
+  background: linear-gradient(#76A36C, #A3D139); /* Green Flowers */
+  border: 0.5px solid #638C5A;
+  z-index: 0;
+  transition: width 0.8s ease, height 0.8s ease;
+}
+
+.two { transform: rotate(90deg); }
+.three { transform: rotate(270deg); }
+.four { transform: rotate(180deg); }
+
+.btn-doc:hover .petal {
+  background: linear-gradient(#638C5A, #76A36C);
+  border: 0.5px solid #1A2E05;
+}
+
+.btn-doc:hover .flower {
+  grid-template-columns: 1.5em 1.5em;
+}
+
+.btn-doc:hover .flower .petal {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.btn-doc:hover .text-doc {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.btn-doc:hover div.flower1 { animation: 15s linear 0s normal none infinite running flower1; }
+@keyframes flower1 { 0% { transform: rotate(5deg); } 100% { transform: rotate(365deg); } }
+
+.btn-doc:hover div.flower2 { animation: 13s linear 1s normal none infinite running flower2; }
+@keyframes flower2 { 0% { transform: rotate(35deg); } 100% { transform: rotate(-325deg); } }
+
+.btn-doc:hover div.flower3 { animation: 16s linear 1s normal none infinite running flower3; }
+@keyframes flower3 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.btn-doc:hover div.flower4 { animation: 17s linear 1s normal none infinite running flower4; }
+@keyframes flower4 { 0% { transform: rotate(15deg); } 100% { transform: rotate(375deg); } }
+
+.btn-doc:hover div.flower5 { animation: 20s linear 1s normal none infinite running flower5; }
+@keyframes flower5 { 0% { transform: rotate(25deg); } 100% { transform: rotate(-335deg); } }
+
+.btn-doc:hover div.flower6 { animation: 15s linear 1s normal none infinite running flower6; }
+@keyframes flower6 { 0% { transform: rotate(30deg); } 100% { transform: rotate(390deg); } }
+
+/* ---------- Logout Farewell Flower (Green Version) ---------- */
+.logout-flower-view {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: rotateLogoutFlower 8s infinite ease;
+}
+
+.logout-petal-view {
+  position: absolute;
+  width: 35px;
+  height: 60px;
+  background: linear-gradient(180deg, #d1e7dd, #638c5a); /* Hayan Greens */
+  border-radius: 50%;
+  animation: changeLogoutColor 8s reverse infinite;
+}
+
+.lp1 { transform: rotate(0deg) translateY(-50%); animation-delay: 0.1s; }
+.lp2 { transform: rotate(45deg) translateY(-50%); animation-delay: 0.2s; }
+.lp3 { transform: rotate(90deg) translateY(-50%); animation-delay: 0.3s; }
+.lp4 { transform: rotate(135deg) translateY(-50%); animation-delay: 0.4s; }
+.lp5 { transform: rotate(180deg) translateY(-50%); animation-delay: 0.5s; }
+.lp6 { transform: rotate(225deg) translateY(-50%); animation-delay: 0.6s; }
+.lp7 { transform: rotate(270deg) translateY(-50%); animation-delay: 0.7s; }
+.lp8 { transform: rotate(315deg) translateY(-50%); animation-delay: 0.8s; }
+
+.logout-center-view {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #f8f3e9;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+@keyframes changeLogoutColor {
+  0% { background: linear-gradient(180deg, #d1e7dd, #638c5a); }
+  25% { background: linear-gradient(180deg, #e2efd9, #76a36c); }
+  50% { background: linear-gradient(180deg, #f0f7ef, #a3d139); }
+  75% { background: linear-gradient(180deg, #d4edda, #5aba63); }
+  100% { background: linear-gradient(180deg, #d1e7dd, #638c5a); }
+}
+
+@keyframes rotateLogoutFlower {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.5) rotate(360deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ---------- New Animated Map Button (Tree Location) ---------- */
+.map-btn-wrapper {
+  --btn-color: #638C5A; /* Forest Green */
+  --text-color: #fff;
+  --land-color: #ffdd9f;
+  --veg-color: #36ad5aa9;
+  --water-color: #b3e3ff;
+  --transition-dur: 0.3s;
+
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  font-size: 16px;
+  font-family: inherit;
+
+  user-select: none;
+  overflow: hidden;
+  border-radius: 50ch;
+
+  box-shadow:
+    0px -1px 2px rgba(3, 7, 18, 0.005),
+    0px -5px 6px rgba(3, 7, 18, 0.009),
+    0px -12px 12px rgba(3, 7, 18, 0.015),
+    0px -20px 22px rgba(3, 7, 18, 0.02),
+    0px -32px 32px rgba(3, 7, 18, 0.06);
+
+  transition: transform var(--transition-dur) ease;
+}
+
+.map-btn {
+  cursor: pointer;
+  padding: 1em 1.5em 1em 3.5em;
+  width: 100%;
+  text-align: center;
+
+  border-radius: 50ch;
+
+  background-color: var(--btn-color);
+
+  font-weight: 900;
+  color: var(--text-color);
+
+  transition:
+    color var(--transition-dur) ease-in-out,
+    background-color var(--transition-dur) ease-in-out;
+}
+
+.pinpoint {
+  pointer-events: none;
+  position: absolute;
+  height: 60%;
+  aspect-ratio: 1;
+  top: 20%;
+  left: 0.75em;
+
+  border-radius: 50% 50% 50% 50%;
+  background-color: var(--text-color);
+  transform: rotateZ(45deg);
+
+  mask-image: radial-gradient(circle at center, #0000 0%, #0000 32%, #fff 36%);
+  filter: blur(0.25px);
+  transition:
+    background-color var(--transition-dur) ease-in-out,
+    transform var(--transition-dur) ease-in-out,
+    border-radius calc(var(--transition-dur) + 0.1s) ease;
+  z-index: 1;
+}
+
+.map-container {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  margin-left: -60px;
+  top: 115px;
+  perspective: 120px;
+  transform: perspective(120px) rotateX(35deg) scaleX(0);
+  transform-origin: center top;
+  transition:
+    transform var(--transition-dur) ease-in-out,
+    opacity var(--transition-dur) ease-in-out;
+  opacity: 0;
+  z-index: 0;
+}
+
+.map {
+  position: absolute;
+  bottom: 100px;
+  width: 120px;
+  height: 200px;
+  background-color: var(--water-color);
+  background-image: linear-gradient(to bottom, #fff2, 30%, #0000);
+  transform-origin: left bottom;
+}
+.map::after {
+  content: "";
+  top: -40px;
+  left: 12px;
+  width: 100%;
+  height: 200%;
+  background-color: var(--land-color);
+  position: absolute;
+  filter: url(#land);
+  box-shadow: inset 0 0 48px 24px var(--veg-color);
+  z-index: 0;
+}
+.fold-1,
+.fold-2,
+.fold-3,
+.fold-4 {
+  mask-image: linear-gradient(to top, #fff, 97%, #0000);
+  overflow: hidden;
+}
+
+.fold-1 {
+  left: -60px;
+  transform: rotateY(10deg) translateZ(30px);
+}
+.fold-2 {
+  left: 60px;
+  transform: rotateY(-10deg) translateZ(10px);
+}
+.fold-3 {
+  left: -169px;
+  transform: rotateY(-15deg) translateZ(-1px);
+}
+.fold-4 {
+  left: 166px;
+  transform: rotateY(15deg) translateZ(31px);
+}
+.fold-1::before,
+.fold-2::before,
+.fold-3::before,
+.fold-4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 10px 16px 3px #0004;
+  z-index: 1;
+}
+
+/* Hover states */
+.map-btn-wrapper:has(.map-btn:hover) {
+  transform: scale(1.05);
+}
+.map-btn:hover {
+  background-color: var(--text-color);
+  color: #00000025;
+}
+.map-btn:hover + .pinpoint {
+  background-color: var(--btn-color);
+  border-radius: 50% 50% 0 50%;
+  transform: rotateZ(45deg) translate(-0.3em, -0.3em);
+}
+.map-btn:hover ~ .map-container {
+  transform: perspective(100px) rotateX(35deg) scaleX(0.85);
+  opacity: 1;
+}
+
+/* Active states */
+.map-btn-wrapper:has(.map-btn:active) {
+  transform: scale(1.02) translateY(0.2em);
+}
+.map-btn:active + .pinpoint {
+  transform: rotateZ(45deg) translate(0em, 0em);
+  transition-duration: calc(var(--transition-dur) * 0.5);
+}
+.map-btn:active ~ .map-container {
+  transform: perspective(95px) rotateX(35deg) scaleX(0.85);
+  transition-duration: calc(var(--transition-dur) * 0.5);
+}

@@ -1,0 +1,35 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "air-quality",
+      "description": "Person walking in a green neighborhood",
+      "imageUrl": "https://picsum.photos/seed/air1/600/400",
+      "imageHint": "walking park"
+    },
+    {
+      "id": "waste-sorting",
+      "description": "Well organized recycling bins",
+      "imageUrl": "https://picsum.photos/seed/waste1/600/400",
+      "imageHint": "recycling bins"
+    },
+    {
+      "id": "greening",
+      "description": "Small plant growing in a pot",
+      "imageUrl": "https://picsum.photos/seed/green1/600/400",
+      "imageHint": "potted plant"
+    },
+    {
+      "id": "energy-saving",
+      "description": "Energy efficient light bulb",
+      "imageUrl": "https://picsum.photos/seed/energy1/600/400",
+      "imageHint": "light bulb"
+    },
+    {
+      "id": "neighborhood-hero",
+      "description": "Aerial view of a green neighborhood",
+      "imageUrl": "https://picsum.photos/seed/hood1/1200/600",
+      "imageHint": "green neighborhood"
+    }
+  ]
+}
